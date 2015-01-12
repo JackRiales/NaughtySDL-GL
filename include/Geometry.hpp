@@ -6,22 +6,22 @@
 #include "RenderNode.hpp"
 #include "Color.hpp"
 
-class Geometry : public IRenderNode
+class Geometry2D : public IRenderNode
 {
     public:
         /// Constructor
-        Geometry
+        Geometry2D
         (
-         const int& x = 0.f,
-         const int& y = 0.f,
-         const int& w = 0.f,
-         const int& h = 0.f,
-         unsigned int layer = 0,
-         int type = FILLED
+            const int& x = 0.f,
+            const int& y = 0.f,
+            const int& w = 0.f,
+            const int& h = 0.f,
+            unsigned int layer = 0,
+            int type = FILLED
         );
 
         /// Destructor
-        virtual ~Geometry ();
+        virtual ~Geometry2D ();
 
         /// Calls a renderer to draw geometry
         void render (SDL_Renderer* renderer) override;
@@ -46,6 +46,7 @@ class Geometry : public IRenderNode
         inline void set_color (Color* color) { _draw_color = color; }
         inline void set_color (const Uint8& r, const Uint8& g, const Uint8& b, const Uint8& a = 0xFF) { _draw_color = new Color (r, g, b, a); }
         inline void set_dotted_increment (const unsigned int& increment) { _dotted_increment = increment; }
+        inline void set_position (const int& x, const int& y) { _rect.x = x; _rect.y = y; }
 
     /// Accessors
     public:

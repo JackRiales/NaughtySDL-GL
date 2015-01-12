@@ -4,7 +4,10 @@ void InputProcessor::process_event(SDL_Event *e)
 {
     while (SDL_PollEvent( e ) != 0)
     {
-        e->type = handle_input(e);
+        if (e->type != SDL_QUIT)
+        {
+            e->type = handle_input(e);
+        }
     }
 }
 

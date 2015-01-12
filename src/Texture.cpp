@@ -1,21 +1,11 @@
 #include "Texture.hpp"
 
-Texture::Texture
-(
-    SDL_Renderer* renderer,
-    const std::string& path,
-    Color* key,
-    const int& x,
-    const int& y,
-    const unsigned int& layer
-):
-IRenderNode (layer),
-_texture (NULL),
-_position (new Vector2D<int> (x, y))
+Texture::Texture (SDL_Renderer* renderer, const std::string& path, Color* key):
+_texture (NULL)
 {
     if (path != "")
     {
-        printf ("Creating new texture from %s...", path.c_str());
+        printf ("Creating new texture from %s...\n", path.c_str());
         load_from_file (path, renderer, key);
     }
 }
@@ -58,12 +48,6 @@ bool Texture::load_from_file(const std::string& path, SDL_Renderer* renderer, Co
 
     _texture = new_texture;
     return _texture != NULL;
-}
-
-void Texture::render(SDL_Renderer* renderer)
-{
-    SDL_Rect render_quad = { _position->x, _position->y, (int)_width, (int)_height };
-    SDL_RenderCopy (renderer, _texture, NULL, &render_quad);
 }
 
 void Texture::free()

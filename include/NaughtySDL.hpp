@@ -4,7 +4,7 @@
 #include "Application.hpp"
 #include "Vector.hpp"
 
-static Application* APP_MAIN = nullptr;
+extern Application* APP_MAIN;
 
 void Naughty_Init (const std::string& header, const unsigned int& width, const unsigned int& height);
 

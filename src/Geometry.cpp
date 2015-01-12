@@ -1,6 +1,6 @@
 #include "Geometry.hpp"
 
-Geometry::Geometry(const int& x, const int& y, const int& w, const int& h, unsigned int layer, int type) :
+Geometry2D::Geometry2D (const int& x, const int& y, const int& w, const int& h, unsigned int layer, int type):
 IRenderNode (layer),
 _draw_color (new Color (255, 255, 255, 255)),
 _type ( (Geo_Type) type ),
@@ -9,12 +9,12 @@ _dotted_increment (4)
     _rect = { x, y, w, h };
 }
 
-Geometry::~Geometry()
+Geometry2D::~Geometry2D()
 {
 
 }
 
-void Geometry::render (SDL_Renderer* renderer)
+void Geometry2D::render (SDL_Renderer* renderer)
 {
     SDL_SetRenderDrawColor(
                             renderer,
@@ -52,7 +52,7 @@ void Geometry::render (SDL_Renderer* renderer)
     }
 }
 
-void Geometry::draw_dotted (SDL_Renderer* renderer, const unsigned int& spacing)
+void Geometry2D::draw_dotted (SDL_Renderer* renderer, const unsigned int& spacing)
 {
     for (int x = _rect.x; x < _rect.w; x += spacing)
     {
@@ -63,7 +63,7 @@ void Geometry::draw_dotted (SDL_Renderer* renderer, const unsigned int& spacing)
     }
 }
 
-void Geometry::draw_dotted_line(SDL_Renderer* renderer, const unsigned int& spacing)
+void Geometry2D::draw_dotted_line(SDL_Renderer* renderer, const unsigned int& spacing)
 {
 
 }

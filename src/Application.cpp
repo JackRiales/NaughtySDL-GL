@@ -94,7 +94,7 @@ bool Application::initialize()
 
             // Initialize renderer, as well. Error check.
             printf ("Initializing renderer...\n");
-            _renderer = SDL_CreateRenderer( _window, -1 , SDL_RENDERER_ACCELERATED);
+            _renderer = SDL_CreateRenderer( _window, -1 , SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
             if (_renderer == NULL)
             {
                 printf ("Renderer device could not initialize! SDL_Error: %s\n", SDL_GetError());

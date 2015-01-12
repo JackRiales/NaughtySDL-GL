@@ -3,17 +3,50 @@
 #include "NaughtySDL.hpp"
 #include "Geometry.hpp"
 #include "Texture.hpp"
+#include "Sprite.hpp"
+#include "AnimatedSprite.hpp"
 
-/// Texture testing
+/// Animated sprite testing
 int main (int argc, char** argv)
 {
-    Naughty_Init ("Testing textures", 800, 600);
+    Naughty_Init("Animated sprite testing", 800, 600);
 
-    Texture tex (Naughty_MainRenderer, "candy_kid.bmp", NULL, 100, 100);
-    Naughty_MountRenderable(tex);
+    SDL_Rect rects[] = {
+        {0, 0, 32, 32},
+        {32, 32, 32, 32}
+    };
+
+    AnimatedSprite as (new Texture (Naughty_MainRenderer, "digbug.png", NULL), rects, 2);
 
     return Naughty_Run();
 }
+
+/// Sprite testing
+/*int main (int argc, char** argv)
+{
+    Naughty_Init("Testing sprites", 800, 600);
+
+    SDL_Rect draw_area = { 0, 0, 32, 32 };
+    Sprite sprite (new Texture (Naughty_MainRenderer, "digbug.png", NULL),
+                   draw_area,
+                   0,
+                   0);
+
+    Naughty_MountRenderable(sprite);
+
+    return Naughty_Run();
+}*/
+
+/// Texture testing
+/*int main (int argc, char** argv)
+{
+    Naughty_Init ("Testing textures", 800, 600);
+
+    Texture tex (Naughty_MainRenderer, "tnp.jpg", NULL, 0, 0);
+    Naughty_MountRenderable(tex);
+
+    return Naughty_Run();
+}*/
 
 /// Geometry testing
 /*

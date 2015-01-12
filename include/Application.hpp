@@ -84,7 +84,7 @@ class Application
 
     /// Accessors
     public:
-        //inline SDL_Renderer* renderer() { return _renderer; }
+        inline SDL_Renderer* renderer() { return _renderer; }
         inline const unsigned int& width() { return _width; }
         inline const unsigned int& height(){ return _height; }
         const unsigned int layer_max ();

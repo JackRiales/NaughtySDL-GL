@@ -1,5 +1,7 @@
 #include "NaughtySDL.hpp"
 
+Application* APP_MAIN = nullptr;
+
 void Naughty_Init (const std::string& header, const unsigned int& width, const unsigned int& height)
 {
     printf ("Initializing NaughtySDL...\n");

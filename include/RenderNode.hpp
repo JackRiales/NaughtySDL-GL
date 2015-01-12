@@ -14,6 +14,10 @@ class IRenderNode
     protected:
         unsigned int _layer;
 
+    /// Mutators
+    public:
+        void set_layer (const int& layer) { _layer = layer; }
+
     /// Accessor(s)
     public:
         const unsigned int& layer () { return _layer; }
