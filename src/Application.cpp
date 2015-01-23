@@ -101,12 +101,20 @@ bool Application::initialize()
                 return false;
             }
 
-            // Since we're using SDL_Image, we must initialize it as well.
+            // Initialize SDL_IMG. Error check.
             printf ("Initializing IMG...\n");
             int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
             if ( !(IMG_Init(imgFlags) & imgFlags) )
             {
                 printf ("SDL_Image could not be initialized. SDL_Image Error: %s\n", IMG_GetError());
+                return false;
+            }
+
+            // Initialize SDL_TTF. Error check.
+            printf ("Initializing TTF...\n");
+            if (TTF_Init() == -1)
+            {
+                printf( "SDL_ttf could not initialize. SDL_ttf Error: %s\n", TTF_GetError() );
                 return false;
             }
         }
@@ -140,6 +148,7 @@ void Application::exit()
     _window = NULL;
     _renderer = NULL;
 
+    TTF_Quit();
     IMG_Quit();
     SDL_Quit();
 }

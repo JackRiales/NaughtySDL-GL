@@ -1,8 +1,8 @@
 #ifndef TEXTURE_HPP
 #define TEXTURE_HPP
 
-#include <SDL.h>
-#include <SDL_image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 #include <string>
 #include <stdio.h>
@@ -13,12 +13,13 @@
 class Texture
 {
     public:
+        Texture ();
+        Texture (SDL_Texture* texture);
         Texture (SDL_Renderer* renderer, const std::string& path = "", Color* key = new Color (255, 0, 255));
         virtual ~Texture();
+        virtual void free ();
 
-        bool load_from_file (const std::string& path, SDL_Renderer* renderer, Color* key = NULL);
-
-        void free ();
+        virtual bool load_from_file (const std::string& path, SDL_Renderer* renderer, Color* key = NULL);
 
     private:
         SDL_Texture*    _texture;
@@ -27,6 +28,7 @@ class Texture
 
     /// Mutators
     public:
+        inline void set_texture (SDL_Texture* texture)              { _texture = texture; }
         inline void set_size (const int& width, const int& height)  { _width = width; _height = height; }
         inline void set_color (Color* color)                        { SDL_SetTextureColorMod(_texture, color->r, color->g, color->b); }
         inline void set_color (Uint8 r, Uint8 g, Uint8 b)           { SDL_SetTextureColorMod(_texture, r, g, b); }

@@ -1,5 +1,17 @@
 #include "Texture.hpp"
 
+Texture::Texture():
+_texture (NULL)
+{
+    ;
+}
+
+Texture::Texture(SDL_Texture* texture):
+_texture (texture)
+{
+    ;
+}
+
 Texture::Texture (SDL_Renderer* renderer, const std::string& path, Color* key):
 _texture (NULL)
 {

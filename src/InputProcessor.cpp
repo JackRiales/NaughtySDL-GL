@@ -26,3 +26,10 @@ Uint32 InputProcessor::handle_input(SDL_Event *e)
     }
     return SDL_SYSWMEVENT;
 }
+
+const Vector2D<int> InputProcessor::mouse_position()
+{
+    int x, y;
+    SDL_GetMouseState(&x, &y);
+    return (*new Vector2D<int>(x, y));
+}

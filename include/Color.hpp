@@ -1,7 +1,7 @@
 #ifndef COLOR_HPP
 #define COLOR_HPP
 
-#include <SDL.h>
+#include <SDL/SDL.h>
 
 struct Color
 {

@@ -21,16 +21,16 @@ class AnimatedSprite : public Sprite
 
     /// Mutators
     public:
-        inline void set_frames ( const std::vector<SDL_Rect>& frames ) { _frames = frames; }
-        inline void add_frame (const SDL_Rect& new_frame) { _frames.push_back(new_frame); }
-        inline void set_timing (const unsigned int& t) { _frame_time = t; }
+        inline void set_frames ( const std::vector<SDL_Rect>& frames )  { _frames = frames; }
+        inline void add_frame (const SDL_Rect& new_frame)               { _frames.push_back(new_frame); }
+        inline void set_timing (const unsigned int& t)                  { _frame_time = t; }
 
     /// Accessors
     public:
-        inline const std::vector<SDL_Rect>& frames() { return _frames; }
-        inline const SDL_Rect& frame (const int& index) { return _frames[index]; }
+        inline const std::vector<SDL_Rect>& frames()        { return _frames; }
+        inline const SDL_Rect& frame (const int& index)     { return _frames[index]; }
         inline const SDL_Rect& operator[](const int& index) { return _frames[index]; }
-        inline const unsigned int& frame_time () { return _frame_time; }
+        inline const unsigned int& frame_time ()            { return _frame_time; }
 };
 
 #endif // ANIMATED_SPRITE_HPP
