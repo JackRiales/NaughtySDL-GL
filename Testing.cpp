@@ -2,7 +2,6 @@
 
 int main()
 {
-    ngl::glApplication app;
-    app.main_loop();
-    return 0;
+    ngl::glApplication glApp;
+    return glApp.main_loop();
 }

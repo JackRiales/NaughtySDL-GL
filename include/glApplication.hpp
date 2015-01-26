@@ -4,16 +4,25 @@
     Priorities:
         - Open and maintain SDL window
         - Begin OpenGL context
+        - Initialize OpenGL
+        - Handle key input
+        - Update logic
+        - Draw
+
+    Dependencies:
+        - SDL2
+        - GLU
+        - Standard IO
+        - STL String
 */
 
 #ifndef _N_GL_APPLICATION_HPP
 #define _N_GL_APPLICATION_HPP
 
-/// Inclusion macros
 #include <SDL2/SDL.h>
+#include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
 #include <GL/glu.h>
-#include <stdio.h>
 #include <stdio.h>
 #include <string>
 
@@ -23,10 +32,12 @@ namespace ngl
 class glApplication
 {
     public:
+        /// Default OpenGL version is 3.1
+        static const Uint8 OPENGL_MAJOR_VERSION = 3;
+        static const Uint8 OPENGL_MINOR_VERSION = 1;
+
         glApplication
         (
-            Uint8 glMajorVersion= 2,
-            Uint8 glMinorVersion= 1,
             std::string header  = "Naughty SDL-GL Application",
             unsigned int width  = 800,
             unsigned int height = 600
@@ -40,41 +51,6 @@ class glApplication
             \param width The window's width. 800 by default.
             \param height The window's height. 600 by default.
         */
-
-        #if 0   // For right now, these constructors will not work properly.
-        glApplication
-        (
-            SDL_GLContext   glContext,
-            std::string     header  = "Naughty SDL-GL Application",
-            unsigned int    width   = 800,
-            unsigned int    height  = 600
-        );
-        /**
-            \name Context-Constructor
-            \brief Initializes based on preexisting glContext object
-        */
-
-        glApplication
-        (
-            Uint8 glMajorVersion,
-            Uint8 glMinorVersion,
-            SDL_Window* sdl_window
-        );
-        /**
-            \name Window-Constructor
-            \brief Initializes based on given context version and a preexisting SDL_Window
-        */
-
-        glApplication
-        (
-            SDL_GLContext   glContext,
-            SDL_Window*     sdl_window
-        );
-        /**
-            \name Context-Window-Constructor
-            \brief Initializes based on preexisting context object and preexisting SDL_Window
-        */
-        #endif
 
         ~glApplication();
         /**
@@ -108,12 +84,18 @@ class glApplication
             \brief Renders vertices to the screen.
         */
 
+        void quit ( void );
+        /**
+            \name Quit
+            \brief Sets _running to false, flagging the end of the program.
+        */
+
     protected:
         const bool initialize(Uint8, Uint8);
         /**
             \name Initializer.
             \brief Called in the constructor to instantiate window and GL context.
-            \param Unt8 OpenGL context version passed from the constructor.
+            \param Uint8 OpenGL context version passed from the constructor.
             \return true if all instantiated correctly. Write to log success notification.
             \return false if a component failed. Write to log when this happens.
         */
@@ -126,19 +108,11 @@ class glApplication
             \return False if exceptions occur
         */
 
-    private:
-        /// Window attributes
-        SDL_Window*     _sdl_window;///< Actual SDL window.
-        SDL_Event       _sdl_event; ///< SDL Window Event Handler
-        unsigned int    _width,     ///< Width of the window.
-                        _height;    ///< Height of the window.
-        std::string     _header;    ///< Window header.
-
-        /// GL attributes
-        Uint8           _glMajor,   ///< OpenGL major version. Must be valid.
-                        _glMinor;   ///< OpenGL minor version. Must be valid.
-        SDL_GLContext   _glContext; ///< SDL's gl context object.
-        bool            _running;   ///< Flag to determine when the program continues to run.
+        void free (void);
+        /**
+            \name Free
+            \brief Deallocates memory for window and quits SDL state
+        */
 
     /// Static methods
     public:
@@ -157,6 +131,14 @@ class glApplication
             \param GLenum enumerated error value
         */
 
+        static void glewLogError(std::string, const GLenum&);
+        /**
+            \name GlewLogError
+            \brief Logs a glew error to console with the given message.
+            \param string The message to send with the error.
+            \param GLenum enumerated error value.
+        */
+
         static bool glErrorCheck(std::string, GLenum&);
         /**
             \name GLErrorCheck
@@ -166,6 +148,33 @@ class glApplication
             \param string The message to send with the error.
             \param GLenum enumerated error value
         */
+
+    private:
+        bool            _running;   ///< Flag to determine when the program continues to run.
+
+        /// Window attributes
+        SDL_Window*     _sdl_window;///< Actual SDL window.
+        SDL_Event       _sdl_event; ///< SDL Window Event Handler
+        unsigned int    _width,     ///< Width of the window.
+                        _height;    ///< Height of the window.
+        std::string     _header;    ///< Window header.
+
+        /// GL attributes
+        SDL_GLContext   _glContext; ///< SDL's gl context object.
+
+        /// Graphics Program Attributes
+        GLuint          _programID; ///< Program ID
+        GLuint          _vertexPos2DLocation;
+        GLuint          _vbo;       ///< Vertex Buffer Objects
+        GLuint          _ibo;       ///< Index Buffer Objects
+
+    /// Accessors
+    public:
+        /// Return the current width of the screen
+        inline const unsigned int& screen_width (void) const { return _width; }
+
+        /// Return the current height of the screen
+        inline const unsigned int& screen_height(void) const { return _height;}
 };
 
 }
